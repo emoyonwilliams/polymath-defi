@@ -96,7 +96,9 @@ npm install
 npm run dev
 ```
 
-Create a `.env` file:
+### Create a `.env` file in the root:
+
+```env
 VITE_MANTLE_RPC=https://rpc.mantle.xyz
 VITE_MANTLE_TESTNET_RPC=https://rpc.sepolia.mantle.xyz
 VITE_RISKLOG_CONTRACT_ADDRESS=0x4a182a0CfCC7f8A6D0c1766e71F7D51F3E1c90c6
