@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 import { ethers } from 'ethers'
 import { connectWallet, switchToMantle } from '../lib/mantle'
 
@@ -40,7 +40,7 @@ export const WalletProvider = ({ children }: { children: ReactNode }) => {
 
   const reconnect = async () => {
     try {
-      const provider = new ethers.BrowserProvider(window.ethereum)
+        const provider = new ethers.BrowserProvider(window.ethereum!)
       const accounts = await provider.listAccounts()
       if (accounts.length > 0) {
         const signer = await provider.getSigner()

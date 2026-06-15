@@ -10,7 +10,7 @@ const STARTER_PROMPTS = [
 ]
 
 export const Agent = () => {
-  const { isConnected, connect, isConnecting } = useWalletContext()
+    const { isConnected } = useWalletContext()
   const [messages, setMessages] = useState([
     {
       type: 'agent',
