@@ -12,32 +12,32 @@ export const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-[#1E1E2E] bg-[#0F0F0F]/95 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-0 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
-        {/* Logo - Far Left (only the cube, no text) */}
+        {/* Logo */}
         <div 
-          className="flex items-center cursor-pointer flex-shrink-0 -ml-10" 
+          className="flex items-center cursor-pointer flex-shrink-0"
           onClick={() => navigate('/')}
         >
-          <img src={logo} alt="Polymath" className="h-9 w-auto" />
+          <img src={logo} alt="Polymath" className="h-8 w-auto" />
         </div>
 
-        {/* Nav Items - Centered with good breathing space */}
-        <div className="hidden md:flex items-center gap-6 text-sm mx-auto">
+        {/* Nav Items - Hidden on mobile, shown on md+ */}
+        <div className="hidden md:flex items-center gap-2 mx-auto">
           {NAV_ITEMS.map(item => (
             <NavLink
               key={item.id}
               to={`/app/${item.id}`}
               className={({ isActive }) =>
-                `flex items-center gap-1 px-22 py-2 rounded-lg font-medium transition-colors ${
+                `flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   isActive
-                    ? 'text-white bg-white/5'
+                    ? 'text-white bg-white/10'
                     : 'text-[#94A3B8] hover:text-white hover:bg-white/5'
                 }`
               }
               style={{ fontFamily: 'DM Sans, sans-serif' }}
             >
-              <span className="material-symbols-outlined text-[15px]">
+              <span className="material-symbols-outlined text-base">
                 {item.id === 'dashboard' && 'dashboard'}
                 {item.id === 'agent' && 'smart_toy'}
                 {item.id === 'portfolio' && 'account_balance_wallet'}
@@ -51,19 +51,19 @@ export const Navbar = () => {
           ))}
         </div>
 
-        {/* Right Side - Wallet Area (same distance from edge as logo) */}
-        <div className="flex items-center gap-4 flex-shrink-0">
+        {/* Right Side */}
+        <div className="flex items-center gap-3 flex-shrink-0">
           {isLandingPage && (
             <div className="hidden md:flex items-center gap-4 text-[#94A3B8]">
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">𝕏</a>
-              <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">D</a>
-              <a href="https://t.me" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">✈️</a>
+              <a href="https://x.com/polymath_defi" target="_blank" rel="noopener noreferrer" className="hover:text-white">𝕏</a>
+              <a href="https://discord.gg/xPhm5wGF" target="_blank" rel="noopener noreferrer" className="hover:text-white">D</a>
+              <a href="https://t.me/polymathdefi" target="_blank" rel="noopener noreferrer" className="hover:text-white">✈️</a>
             </div>
           )}
 
           {isConnected ? (
-            <div className="flex items-center gap-300">
-              <div className="px-5 py-2.5 bg-[#0F2A22] border border-[#1E1E2E] rounded-2xl flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#0F2A22] border border-[#1E1E2E] rounded-2xl">
                 <div className="w-2 h-2 bg-[#10B981] rounded-full animate-pulse" />
                 <span className="text-sm text-white font-medium" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                   {formatAddress(address!)}
@@ -71,8 +71,8 @@ export const Navbar = () => {
               </div>
               <button
                 onClick={disconnect}
-                className="px-6 py-2.5 rounded-full font-medium text-sm border border-[#1E1E2E] bg-[#0F2A22] hover:bg-[#1A3A2E] hover:border-[#10B981] transition-all"
-                style={{ fontFamily: 'DM Sans, sans-serif', color: '#FFFFFF' }}
+                className="px-5 py-2 text-sm rounded-2xl border border-[#1E1E2E] hover:bg-[#1E1E2E] transition-colors"
+                style={{ fontFamily: 'DM Sans, sans-serif' }}
               >
                 Disconnect
               </button>
@@ -81,7 +81,7 @@ export const Navbar = () => {
             <button
               onClick={connect}
               disabled={isConnecting}
-              className="px-6 py-2.5 rounded-full font-medium text-sm bg-white hover:bg-gray-100 text-black transition-all"
+              className="px-6 py-2.5 rounded-2xl font-medium text-sm bg-white hover:bg-gray-100 text-black transition-all whitespace-nowrap"
               style={{ fontFamily: 'DM Sans, sans-serif' }}
             >
               {isConnecting ? 'Connecting...' : 'Connect Wallet'}
