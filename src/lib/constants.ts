@@ -65,10 +65,11 @@ export const PROTOCOLS = [
 
 export const NAV_ITEMS = [
   { id: 'dashboard', label: 'Dashboard', comingSoon: false },
-  { id: 'agent', label: 'Agent', comingSoon: true },
+  { id: 'agent', label: 'Agent', comingSoon: false },
   { id: 'portfolio', label: 'Portfolio', comingSoon: false },
-  { id: 'rewards', label: 'Rewards', comingSoon: true },
+  { id: 'rewards', label: 'Rewards', comingSoon: false },
   { id: 'health', label: 'Health', comingSoon: false },
-  { id: 'governance', label: 'Governance', comingSoon: true },
+  { id: 'governance', label: 'Governance', comingSoon: false },
   { id: 'settings', label: 'Settings', comingSoon: false },
+  { id: 'docs', label: 'Docs', comingSoon: false },
 ]

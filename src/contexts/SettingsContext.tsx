@@ -1,80 +1,101 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
 
-interface SettingsContextType {
-  currency: 'USD' | 'ETH' | 'MNT'
-  highTVL: number
-  mediumTVL: number
-  deltaThreshold: number
-  alertLevel: 'all' | 'critical' | 'none'
-  setCurrency: (currency: 'USD' | 'ETH' | 'MNT') => void
-  setHighTVL: (value: number) => void
-  setMediumTVL: (value: number) => void
-  setDeltaThreshold: (value: number) => void
-  setAlertLevel: (level: 'all' | 'critical' | 'none') => void
+type Currency = 'USD' | 'ETH' | 'MNT'
+type AlertLevel = 'all' | 'critical' | 'none'
+type Theme = 'dark' | 'light'
+
+interface Settings {
+  currency: Currency
+  theme: Theme
+  highTVL: string
+  mediumTVL: string
+  deltaThreshold: string
+  alertLevel: AlertLevel
+  telegramChatId: string
+  enableTelegram: boolean
 }
 
-const SettingsContext = createContext<SettingsContextType | undefined>(undefined)
+interface SettingsContextType extends Settings {
+  setCurrency: (c: Currency) => void
+  setTheme: (t: Theme) => void
+  setHighTVL: (v: string) => void
+  setMediumTVL: (v: string) => void
+  setDeltaThreshold: (v: string) => void
+  setAlertLevel: (a: AlertLevel) => void
+  setTelegramChatId: (id: string) => void
+  setEnableTelegram: (enabled: boolean) => void
+  resetToDefaults: () => void
+}
+
+const SettingsContext = createContext<SettingsContextType | null>(null)
 
 export const SettingsProvider = ({ children }: { children: ReactNode }) => {
-  const [currency, setCurrency] = useState<'USD' | 'ETH' | 'MNT'>('USD')
-  const [highTVL, setHighTVL] = useState(1000000)
-  const [mediumTVL, setMediumTVL] = useState(100000)
-  const [deltaThreshold, setDeltaThreshold] = useState(0.5)
-  const [alertLevel, setAlertLevel] = useState<'all' | 'critical' | 'none'>('all')
+  const [settings, setSettings] = useState<Settings>({
+    currency: 'USD',
+    theme: 'dark',
+    highTVL: '1000000',
+    mediumTVL: '100000',
+    deltaThreshold: '0.5',
+    alertLevel: 'all',
+    telegramChatId: '',
+    enableTelegram: false,
+  })
 
   // Load from localStorage
   useEffect(() => {
-    const savedCurrency = localStorage.getItem('polymath-currency') as 'USD' | 'ETH' | 'MNT' | null
-    const savedHigh = localStorage.getItem('polymath-highTVL')
-    const savedMedium = localStorage.getItem('polymath-mediumTVL')
-    const savedDelta = localStorage.getItem('polymath-deltaThreshold')
-    const savedAlert = localStorage.getItem('polymath-alertLevel') as 'all' | 'critical' | 'none' | null
-
-    if (savedCurrency) setCurrency(savedCurrency)
-    if (savedHigh) setHighTVL(Number(savedHigh))
-    if (savedMedium) setMediumTVL(Number(savedMedium))
-    if (savedDelta) setDeltaThreshold(Number(savedDelta))
-    if (savedAlert) setAlertLevel(savedAlert)
+    const saved = localStorage.getItem('polymath-settings')
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved)
+        // Ensure defaults are merged in case older localStorage version exists
+        setSettings(prev => ({ ...prev, ...parsed }))
+      } catch (e) {
+        console.warn('Failed to parse settings from localStorage', e)
+      }
+    }
   }, [])
 
-  // Save to localStorage
-  const saveSetting = (key: string, value: any) => {
-    localStorage.setItem(`polymath-${key}`, String(value))
+  // Save & Apply Theme
+  useEffect(() => {
+    localStorage.setItem('polymath-settings', JSON.stringify(settings))
+    
+    if (settings.theme === 'light') {
+      document.documentElement.classList.add('light')
+    } else {
+      document.documentElement.classList.remove('light')
+    }
+  }, [settings])
+
+  const updateSetting = <K extends keyof Settings>(key: K, value: Settings[K]) => {
+    setSettings(prev => ({ ...prev, [key]: value }))
   }
 
-  const updateCurrency = (newCurrency: 'USD' | 'ETH' | 'MNT') => {
-    setCurrency(newCurrency)
-    saveSetting('currency', newCurrency)
-  }
-
-  const updateHighTVL = (value: number) => {
-    setHighTVL(value)
-    saveSetting('highTVL', value)
-  }
-
-  const updateMediumTVL = (value: number) => {
-    setMediumTVL(value)
-    saveSetting('mediumTVL', value)
-  }
-
-  const updateDelta = (value: number) => {
-    setDeltaThreshold(value)
-    saveSetting('deltaThreshold', value)
-  }
-
-  const updateAlert = (level: 'all' | 'critical' | 'none') => {
-    setAlertLevel(level)
-    saveSetting('alertLevel', level)
+  const resetToDefaults = () => {
+    const defaults: Settings = {
+      currency: 'USD',
+      theme: 'dark',
+      highTVL: '1000000',
+      mediumTVL: '100000',
+      deltaThreshold: '0.5',
+      alertLevel: 'all',
+      telegramChatId: '',
+      enableTelegram: false,
+    }
+    setSettings(defaults)
   }
 
   return (
     <SettingsContext.Provider value={{
-      currency, highTVL, mediumTVL, deltaThreshold, alertLevel,
-      setCurrency: updateCurrency,
-      setHighTVL: updateHighTVL,
-      setMediumTVL: updateMediumTVL,
-      setDeltaThreshold: updateDelta,
-      setAlertLevel: updateAlert,
+      ...settings,
+      setCurrency: (c) => updateSetting('currency', c),
+      setTheme: (t) => updateSetting('theme', t),
+      setHighTVL: (v) => updateSetting('highTVL', v),
+      setMediumTVL: (v) => updateSetting('mediumTVL', v),
+      setDeltaThreshold: (v) => updateSetting('deltaThreshold', v),
+      setAlertLevel: (a) => updateSetting('alertLevel', a),
+      setTelegramChatId: (id) => updateSetting('telegramChatId', id),
+      setEnableTelegram: (enabled) => updateSetting('enableTelegram', enabled),
+      resetToDefaults,
     }}>
       {children}
     </SettingsContext.Provider>

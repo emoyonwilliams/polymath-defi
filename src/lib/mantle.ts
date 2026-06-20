@@ -27,7 +27,7 @@ export const connectWallet = async () => {
 
 export const getMantleStats = async () => {
   try {
-    const provider = getProvider()
+    const provider = getProvider(true) // Query Sepolia Testnet stats
     const blockNumber = await provider.getBlockNumber()
     const feeData = await provider.getFeeData()
     return {
@@ -47,18 +47,18 @@ export const switchToMantle = async () => {
   try {
     await window.ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: '0x1388' }],
+      params: [{ chainId: '0x138b' }], // Chain ID 5003 (hex: 0x138b) for Mantle Sepolia
     })
   } catch (error: any) {
     if (error.code === 4902) {
       await window.ethereum.request({
         method: 'wallet_addEthereumChain',
         params: [{
-          chainId: '0x1388',
-          chainName: 'Mantle',
+          chainId: '0x138b',
+          chainName: 'Mantle Sepolia',
           nativeCurrency: { name: 'MNT', symbol: 'MNT', decimals: 18 },
-          rpcUrls: [MANTLE_RPC],
-          blockExplorerUrls: ['https://explorer.mantle.xyz'],
+          rpcUrls: [MANTLE_TESTNET_RPC],
+          blockExplorerUrls: ['https://explorer.sepolia.mantle.xyz'],
         }],
       })
     }
