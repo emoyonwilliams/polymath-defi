@@ -99,7 +99,7 @@ npm run dev
 VITE_MANTLE_RPC=https://rpc.mantle.xyz
 VITE_MANTLE_TESTNET_RPC=https://rpc.sepolia.mantle.xyz
 VITE_RISKLOG_CONTRACT_ADDRESS=0x4a182a0CfCC7f8A6D0c1766e71F7D51F3E1c90c6
-VITE_NANSEN_API_KEY=nsn_5ce56db9ceb03d27b437d55f02a9e308
+VITE_NANSEN_API_KEY=your_nansen_api_key
 
 # Gemini API key (starts with AQ...)
 VITE_GEMINI_API_KEY=your_gemini_api_key
