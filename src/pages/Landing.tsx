@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 function Accordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -61,8 +61,7 @@ export const Landing = () => {
             />
           </div>
           <div className="hidden md:flex items-center gap-10">
-            <a onClick={() => navigate('/app/docs?tab=about')} className="text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>About</a>
-            <a onClick={() => navigate('/app/docs?tab=docs')} className="text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>Docs</a>
+            <Link to="/app/docs" className="text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>Resources</Link>
             <a href="https://polymathdefi.substack.com/p/total-risk-clarity?r=8mp3mp" target="_blank" rel="noopener noreferrer" className="text-[#94A3B8] hover:text-[#F8FAFC] transition-colors text-sm font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>Blog</a>
           </div>
           <div className="flex items-center gap-4">
@@ -111,6 +110,9 @@ export const Landing = () => {
             Launch App
           </button>
           <button 
+            onClick={() => {
+              document.getElementById('why-polymath')?.scrollIntoView({ behavior: 'smooth' })
+            }}
             className="border border-white/10 hover:border-white/20 text-[#F8FAFC] hover:bg-white/[0.03] px-8 py-3.5 rounded-full font-medium text-sm transition-all duration-200 hover:-translate-y-0.5" 
             style={{ fontFamily: 'Outfit, sans-serif' }}
           >
@@ -132,7 +134,7 @@ export const Landing = () => {
       </section>
 
       {/* Why Polymath */}
-      <section className="max-w-7xl mx-auto px-6 py-28">
+      <section id="why-polymath" className="max-w-7xl mx-auto px-6 py-28">
         <h2 className="text-4xl md:text-5xl text-center mb-20 font-light" style={{ fontFamily: 'Lora, serif' }}>Why Polymath</h2>
         <div className="grid md:grid-cols-3 gap-8">
           {[
@@ -220,19 +222,19 @@ export const Landing = () => {
               <h3 className="font-semibold text-[#F8FAFC] mb-5 text-sm uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Product</h3>
               <ul className="space-y-3">
                 <li>
-                  <a onClick={() => navigate('/app/docs?tab=docs')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    Docs
-                  </a>
+                  <Link to="/app/docs" className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                    Resources
+                  </Link>
                 </li>
                 <li>
-                  <a onClick={() => navigate('/app/docs?tab=security')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <Link to="/app/docs?tab=security" className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Security
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a onClick={() => navigate('/app/docs?tab=pricing')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <Link to="/app/docs?tab=pricing" className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Pricing
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -240,11 +242,6 @@ export const Landing = () => {
             <div>
               <h3 className="font-semibold text-[#F8FAFC] mb-5 text-sm uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Company</h3>
               <ul className="space-y-3">
-                <li>
-                  <a onClick={() => navigate('/app/docs?tab=about')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                    About
-                  </a>
-                </li>
                 <li>
                   <a href="https://polymathdefi.substack.com/p/total-risk-clarity?r=8mp3mp" target="_blank" rel="noopener noreferrer" className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Blog
@@ -262,13 +259,13 @@ export const Landing = () => {
                   { name: 'Cookies', tab: 'legal' }
                 ].map(item => (
                   <li key={item.name}>
-                    <a 
-                      onClick={() => navigate(`/app/docs?tab=${item.tab}`)} 
+                    <Link 
+                      to={`/app/docs?tab=${item.tab}`} 
                       className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light" 
                       style={{ fontFamily: 'Outfit, sans-serif' }}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
