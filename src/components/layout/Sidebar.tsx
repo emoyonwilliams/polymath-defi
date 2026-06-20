@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import logo from '../../assets/logo.png'
 import { useWalletContext } from '../../hooks/useWalletContext'
 
 const NAV_ITEMS = [
@@ -20,16 +19,16 @@ export const Sidebar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const SidebarContent = () => (
-    <div className="flex flex-col h-full bg-[#08080C] md:bg-transparent">
+    <div className="flex flex-col h-full bg-[#08080C] md:bg-transparent sidebar-container">
       {/* Logo */}
       <div
         className="px-6 py-6 cursor-pointer flex-shrink-0 group"
         onClick={() => { navigate('/'); setMobileOpen(false) }}
       >
-        <img 
-          src={logo} 
-          alt="Polymath" 
-          className="h-7 w-auto logo-invert transition-transform duration-200 group-hover:scale-[1.03] group-hover:brightness-110" 
+        <div 
+          aria-label="Polymath"
+          role="img"
+          className="h-7 logo-masked transition-transform duration-200 group-hover:scale-[1.03] group-hover:brightness-110" 
         />
       </div>
 
@@ -124,11 +123,11 @@ export const Sidebar = () => {
       </aside>
 
       {/* Mobile Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-40 h-16 bg-[#08080C] border-b border-white/[0.04] flex items-center justify-between px-6">
-        <img
-          src={logo}
-          alt="Polymath"
-          className="h-6 w-auto cursor-pointer logo-invert"
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 h-16 bg-[#08080C] border-b border-white/[0.04] flex items-center justify-between px-6 mobile-top-bar">
+        <div
+          aria-label="Polymath"
+          role="img"
+          className="h-6 logo-masked cursor-pointer"
           onClick={() => navigate('/')}
         />
         <button
@@ -149,7 +148,7 @@ export const Sidebar = () => {
 
       {/* Mobile Drawer */}
       <aside
-        className={`md:hidden fixed left-0 top-0 h-screen w-72 bg-[#08080C] border-r border-white/[0.04] z-50 transform transition-transform duration-300 ease-out ${
+        className={`md:hidden fixed left-0 top-0 h-screen w-72 bg-[#08080C] border-r border-white/[0.04] z-50 transform transition-transform duration-300 ease-out mobile-sidebar ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

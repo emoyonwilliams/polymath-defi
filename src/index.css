@@ -189,9 +189,103 @@
   color: #090909 !important;
 }
 
-/* Logo inversion */
+/* Logo inversion & acceleration (prevents mobile Safari filter redraw lag) */
 .light .logo-invert {
-  filter: invert(1) contrast(1.1);
+  filter: invert(1) contrast(1.1) !important;
+}
+
+.logo-invert {
+  will-change: filter;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* CSS Mask for Logo to completely resolve Safari filter redraw bugs */
+.logo-masked {
+  display: block;
+  background-color: #FFFFFF;
+  -webkit-mask: url('./assets/logo.png') no-repeat center / contain;
+  mask: url('./assets/logo.png') no-repeat center / contain;
+  aspect-ratio: 8975 / 2322;
+}
+
+.light .logo-masked {
+  background-color: #0F172A !important;
+}
+
+/* Sidebar and Mobile Top Bar overrides */
+.light .mobile-top-bar {
+  background-color: var(--sidebar) !important;
+  border-bottom-color: var(--card-border) !important;
+}
+
+.light .mobile-sidebar {
+  background-color: var(--sidebar) !important;
+  border-right-color: var(--card-border) !important;
+}
+
+.light .sidebar-container {
+  background-color: var(--sidebar) !important;
+}
+
+/* Specific component overrides */
+.light .bg-\[\#080A10\]\/60,
+.light .bg-\[\#080a10\]\/60,
+.light .settings-pill-container {
+  background-color: #F1F5F9 !important;
+  border-color: var(--card-border) !important;
+}
+
+.light .bg-\[\#080A10\]\/60 code,
+.light .bg-\[\#080a10\]\/60 code {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  border-color: var(--card-border) !important;
+}
+
+.light .bg-\[\#080A10\]\/60 a,
+.light .bg-\[\#080a10\]\/60 a {
+  color: #059669 !important;
+}
+
+.light .bg-\[\#080A10\]\/60 a:hover,
+.light .bg-\[\#080a10\]\/60 a:hover {
+  color: #047857 !important;
+}
+
+/* Telegram Setup Box Light Mode Overrides */
+.light .telegram-setup-box {
+  background-color: #F1F5F9 !important;
+  border-color: var(--card-border) !important;
+}
+
+.light .telegram-setup-box h4 {
+  color: var(--text) !important;
+}
+
+.light .telegram-setup-box ol {
+  color: var(--muted) !important;
+}
+
+.light .telegram-setup-box code {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+  border-color: var(--card-border) !important;
+}
+
+.light .telegram-setup-box a {
+  color: #059669 !important;
+}
+
+.light .telegram-setup-box a:hover {
+  color: #047857 !important;
+}
+
+/* Pricing Cards Light Mode Overrides */
+.light .pricing-card {
+  background-color: var(--card) !important;
+  background: var(--card) !important;
+  border-color: var(--card-border) !important;
 }
 
 /* Light mode specific overrides for Landing Page & Health Cards */

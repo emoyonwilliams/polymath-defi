@@ -87,7 +87,7 @@ export const Settings = () => {
                 <p className="text-sm font-medium text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>Currency</p>
                 <p className="text-xs text-[#64748B] font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>Display values in your preferred currency</p>
               </div>
-              <div className="flex gap-1.5 bg-[#080A10]/60 p-1 border border-white/[0.05] rounded-xl">
+              <div className="flex gap-1.5 bg-[#080A10]/60 settings-pill-container p-1 border border-white/[0.05] rounded-xl">
                 {(['USD', 'ETH', 'MNT'] as const).map(c => (
                   <button
                     key={c}
@@ -178,7 +178,7 @@ export const Settings = () => {
                 <p className="text-sm font-medium text-white" style={{ fontFamily: 'Outfit, sans-serif' }}>Alert Level</p>
                 <p className="text-xs text-[#64748B] font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>Which risk events trigger notifications</p>
               </div>
-              <div className="flex gap-1.5 bg-[#080A10]/60 p-1 border border-white/[0.05] rounded-xl">
+              <div className="flex gap-1.5 bg-[#080A10]/60 settings-pill-container p-1 border border-white/[0.05] rounded-xl">
                 {(['all', 'critical', 'none'] as const).map(a => (
                   <button
                     key={a}
@@ -215,7 +215,7 @@ export const Settings = () => {
 
           <div className="space-y-6">
             {/* Steps Guide */}
-            <div className="bg-[#080A10]/60 p-4 rounded-xl border border-white/[0.03] space-y-2">
+            <div className="bg-[#080A10]/60 telegram-setup-box p-4 rounded-xl border border-white/[0.03] space-y-2">
               <h4 className="text-xs font-bold text-white uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Setup Guide</h4>
               <ol className="list-decimal pl-4 space-y-1 text-[11px] text-[#64748B] font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
                 <li>Open Telegram and search for <a href="https://t.me/polymath_alerts_bot" target="_blank" rel="noopener noreferrer" className="text-[#10B981] underline hover:text-emerald-100">@polymath_alerts_bot</a> (or your custom bot).</li>

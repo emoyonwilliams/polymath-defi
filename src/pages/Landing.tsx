@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png'
 
 function Accordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
@@ -55,15 +54,15 @@ export const Landing = () => {
       <nav className="border-b border-white/[0.04] sticky top-0 z-50 bg-[#08080C]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => navigate('/')}>
-            <img 
-              src={logo} 
-              alt="Polymath" 
-              className="h-8 w-auto logo-invert transition-transform duration-200 group-hover:scale-[1.03] group-hover:brightness-110" 
+            <div 
+              aria-label="Polymath"
+              role="img"
+              className="h-8 logo-masked transition-transform duration-200 group-hover:scale-[1.03] group-hover:brightness-110" 
             />
           </div>
           <div className="hidden md:flex items-center gap-10">
-            <button onClick={() => navigate('/app/docs?tab=about')} className="text-[#94A3B8] hover:text-[#F8FAFC] transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>About</button>
-            <button onClick={() => navigate('/app/docs?tab=docs')} className="text-[#94A3B8] hover:text-[#F8FAFC] transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>Docs</button>
+            <a onClick={() => navigate('/app/docs?tab=about')} className="text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>About</a>
+            <a onClick={() => navigate('/app/docs?tab=docs')} className="text-[#94A3B8] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-medium focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>Docs</a>
             <a href="https://polymathdefi.substack.com/p/total-risk-clarity?r=8mp3mp" target="_blank" rel="noopener noreferrer" className="text-[#94A3B8] hover:text-[#F8FAFC] transition-colors text-sm font-medium" style={{ fontFamily: 'Outfit, sans-serif' }}>Blog</a>
           </div>
           <div className="flex items-center gap-4">
@@ -208,7 +207,11 @@ export const Landing = () => {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
               <div className="flex flex-col gap-4 mb-4">
-                <img src={logo} alt="Polymath" className="h-8 w-auto self-start logo-invert" />
+                <div 
+                  aria-label="Polymath"
+                  role="img"
+                  className="h-8 self-start logo-masked" 
+                />
                 <p className="text-[#64748B] text-sm leading-relaxed" style={{ fontFamily: 'Outfit, sans-serif' }}>Total risk clarity for Mantle DeFi.</p>
               </div>
             </div>
@@ -217,19 +220,19 @@ export const Landing = () => {
               <h3 className="font-semibold text-[#F8FAFC] mb-5 text-sm uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Product</h3>
               <ul className="space-y-3">
                 <li>
-                  <button onClick={() => navigate('/app/docs?tab=docs')} className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <a onClick={() => navigate('/app/docs?tab=docs')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Docs
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button onClick={() => navigate('/app/docs?tab=security')} className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <a onClick={() => navigate('/app/docs?tab=security')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Security
-                  </button>
+                  </a>
                 </li>
                 <li>
-                  <button onClick={() => navigate('/app/docs?tab=pricing')} className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <a onClick={() => navigate('/app/docs?tab=pricing')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     Pricing
-                  </button>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -238,9 +241,9 @@ export const Landing = () => {
               <h3 className="font-semibold text-[#F8FAFC] mb-5 text-sm uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Company</h3>
               <ul className="space-y-3">
                 <li>
-                  <button onClick={() => navigate('/app/docs?tab=about')} className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
+                  <a onClick={() => navigate('/app/docs?tab=about')} className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light focus:outline-none" style={{ fontFamily: 'Outfit, sans-serif' }}>
                     About
-                  </button>
+                  </a>
                 </li>
                 <li>
                   <a href="https://polymathdefi.substack.com/p/total-risk-clarity?r=8mp3mp" target="_blank" rel="noopener noreferrer" className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
@@ -253,9 +256,19 @@ export const Landing = () => {
             <div>
               <h3 className="font-semibold text-[#F8FAFC] mb-5 text-sm uppercase tracking-wider" style={{ fontFamily: 'Outfit, sans-serif' }}>Legal</h3>
               <ul className="space-y-3">
-                {['Privacy', 'Terms', 'Cookies'].map(name => (
-                  <li key={name}>
-                    <a href="#" className="text-[#64748B] hover:text-[#F8FAFC] transition-colors text-sm font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>{name}</a>
+                {[
+                  { name: 'Privacy', tab: 'legal' },
+                  { name: 'Terms', tab: 'legal' },
+                  { name: 'Cookies', tab: 'legal' }
+                ].map(item => (
+                  <li key={item.name}>
+                    <a 
+                      onClick={() => navigate(`/app/docs?tab=${item.tab}`)} 
+                      className="text-[#64748B] hover:text-[#F8FAFC] cursor-pointer transition-colors text-sm font-light" 
+                      style={{ fontFamily: 'Outfit, sans-serif' }}
+                    >
+                      {item.name}
+                    </a>
                   </li>
                 ))}
               </ul>
