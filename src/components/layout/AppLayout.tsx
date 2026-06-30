@@ -17,28 +17,28 @@ export const AppLayout = ({ children }: AppLayoutProps) => {
           <span className="text-white/10">•</span>
           <span>Real-time on-chain risk monitoring</span>
           <span className="text-white/10">•</span>
-          <span>AI-powered insights by Nansen</span>
+          <span>AI-powered insights by Nansen + Pyth + GitHub Models</span>
           <span className="text-white/10">•</span>
 
           <span>Total risk clarity for Mantle DeFi</span>
           <span className="text-white/10">•</span>
           <span>Real-time on-chain risk monitoring</span>
           <span className="text-white/10">•</span>
-          <span>AI-powered insights by Nansen</span>
+          <span>AI-powered insights by Nansen + Pyth + GitHub Models</span>
           <span className="text-white/10">•</span>
 
           <span>Total risk clarity for Mantle DeFi</span>
           <span className="text-white/10">•</span>
           <span>Real-time on-chain risk monitoring</span>
           <span className="text-white/10">•</span>
-          <span>AI-powered insights by Nansen</span>
+          <span>AI-powered insights by Nansen + Pyth + GitHub Models</span>
           <span className="text-white/10">•</span>
 
           <span>Total risk clarity for Mantle DeFi</span>
           <span className="text-white/10">•</span>
           <span>Real-time on-chain risk monitoring</span>
           <span className="text-white/10">•</span>
-          <span>AI-powered insights by Nansen</span>
+          <span>AI-powered insights by Nansen + Pyth + GitHub Models</span>
           <span className="text-white/10">•</span>
         </div>
       </div>

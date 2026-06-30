@@ -2,9 +2,7 @@
 
 ### Total risk clarity for Mantle DeFi.
 
-Polymath is a real-time risk intelligence dashboard for Mantle Network. It unifies on-chain smart contract risk, Pyth-backed oracle health, and off-chain institutional backing across Mantle's leading DeFi protocols into a single view—grounded in structured Gemini 2.0 Flash AI telemetry, with every risk assessment logged permanently on-chain for transparency and auditability.
-
-Built for the **Mantle Turing Test Hackathon 2026** — AI x RWA track.
+Polymath is a real-time risk intelligence dashboard and autonomous AI Research Agent for Mantle Network. It unifies on-chain smart contract risk, Pyth-backed oracle health, and off-chain institutional backing across Mantle's leading DeFi protocols into a single view—grounded in structured AI telemetry, with every risk assessment logged permanently on-chain for transparency and auditability.
 
 **Live app:** https://polymath-defi.vercel.app/
 
@@ -28,9 +26,9 @@ Polymath fills that gap.
 ## What Polymath Does
 
 - **Dashboard** — Your Mantle DeFi positions at a glance: net worth, yield earned, average APY, active protocols, and live network stats (block height, gas price). Scale your balances dynamically across alternative base currencies ($USD, $ETH, $MNT) using real-time Pyth price feeds.
-- **Health** — Real-time risk analysis across 8 monitored protocols powered by **Gemini 2.0 Flash**. Each gets a risk score (0–100), risk level, key warning signals, and actionable recommendation. Click to log any assessment hash permanently on-chain via the deployed `RiskLog` contract.
-- **Portfolio** — Full asset breakdown: balances, APY, value, individual risk scores, and a liquidity timeline showing instant vs. 7-day bridge withdrawal windows.
-- **Agent** — AI copilot for Mantle DeFi. Chat with an LLM agent that has full, context-aware query access to your wallet balances and yields. Get rebalancing suggestions grounded in real-time risk data.
+- **Health** — Real-time risk analysis across 8 monitored protocols powered by **GitHub Models (gpt-4o-mini)**. Each gets a risk score (0–100), risk level, key warning signals, and actionable recommendation. Click to log any assessment hash permanently on-chain via the deployed `RiskLog` contract.
+- **Portfolio** — Full asset breakdown: balances, APY (synced with live DeFiLlama yields), value, individual risk scores (dynamically synced from Health audits), and a liquidity timeline showing instant vs. 7-day bridge withdrawal windows.
+- **Agent** — Autonomous AI Research Agent for Mantle DeFi. Chat with an LLM-powered co-pilot that has full, context-aware access to your wallet balances, protocol risk assessments, Pyth oracle latency, and live Snapshot governance proposals. Get rebalancing suggestions grounded in real-time telemetry, with every response cryptographically signed (ERC-8004) and billed via x402 micropayment channels.
 - **Rewards** — Track yield earned over time, claimable rewards (with on-chain claim triggers), and campaign progress.
 - **Governance** — Live Mantle governance proposals loaded dynamically via the **Snapshot Hub GraphQL API**, treasury size, and voting power.
 - **Telegram Alerts** — Set up your personal Telegram Chat ID in the app. Polymath scans your portfolio and automatically DMs you warning signals if a protocol you have assets in breaches your risk thresholds. It also broadcasts critical warnings directly to the public `@polymathdefi` channel.
@@ -56,12 +54,12 @@ This makes risk assessments auditable and tamper-proof—anyone can verify what 
 
 ---
 
-## Tech Stack
-
-- **Frontend:** React + TypeScript + Vite
-- **Styling:** Vanilla CSS (Glassmorphism & premium HSL dark-mode theme)
+- **Tech Stack:** React + TypeScript + Vite
+- **Styling:** Vanilla CSS (Glassmorphism & premium HSL dark-mode theme, fully responsive)
 - **Wallet & Chain Interaction:** Ethers.js (v6) + tanstack-query
-- **Risk Telemetry & Agent AI:** Gemini 2.0 Flash API (enforcing strict JSON output parsing schemas)
+- **Risk Telemetry & Agent AI:** GitHub Models API (OpenAI-compatible, gpt-4o / gpt-4o-mini)
+- **Smart Money Intelligence:** Nansen Smart Money API (holdings tracker with local mocking to preserve credits)
+- **Yield Aggregators:** DeFiLlama Pools API (real-time APY syncing)
 - **Asset Valuations:** Pyth Network Hermes API (dynamic spot price conversions)
 - **Governance Feed:** Snapshot Hub GraphQL API
 - **Alert System:** Telegram Bot API
@@ -101,8 +99,8 @@ VITE_MANTLE_TESTNET_RPC=https://rpc.sepolia.mantle.xyz
 VITE_RISKLOG_CONTRACT_ADDRESS=0x4a182a0CfCC7f8A6D0c1766e71F7D51F3E1c90c6
 VITE_NANSEN_API_KEY=your_nansen_api_key
 
-# Gemini API key (starts with AQ...)
-VITE_GEMINI_API_KEY=your_gemini_api_key
+# GitHub Personal Access Token (for AI models)
+VITE_GITHUB_TOKEN=your_github_token
 
 # Telegram Alerts Configuration
 VITE_TELEGRAM_BOT_TOKEN=your_telegram_bot_token
@@ -127,4 +125,4 @@ MIT
 
 ---
 
-Built with belief in Mantle's RWA-native future.
+Built with conviction in Mantle's RWA-native future.

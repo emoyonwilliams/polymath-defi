@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { analyzeProtocolRisk, generateHealthInsight, type RiskAssessment } from '../lib/claude'
+import { analyzeProtocolRisk, generateHealthInsight, type RiskAssessment } from '../lib/ai'
 import { PROTOCOLS } from '../lib/constants'
 
 export interface ProtocolHealthData {

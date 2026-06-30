@@ -5,17 +5,9 @@ import { ethers } from 'ethers'
 import { useSettings } from '../contexts/SettingsContext'
 import { convertAndFormat } from './Dashboard'
 import { HermesClient } from '@pythnetwork/hermes-client'
-
-const TOKEN_LIST = [
-  { symbol: 'MNT', name: 'Mantle', address: 'native', decimals: 18, protocol: 'Mantle', priceId: '0x4e3037c822d852d79af3ac80e35eb420ee3b870dca49f9344a38ef4773fb0585', apy: 0 },
-  { symbol: 'mETH', name: 'mETH', address: '0xcDA86A272531e8640cD7F1a92c01839911B90bb0', decimals: 18, protocol: 'Mantle Staking', priceId: '0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace', apy: 4.8 },
-  { symbol: 'USDC', name: 'Aave USDC', address: '0xAcab8129E2cE587fD203FD770ec9ECAFA2C88080', decimals: 6, protocol: 'Aave V3', priceId: '0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a', apy: 3.8 },
-  { symbol: 'MOE', name: 'Merchant Moe', address: '0x89503b3e0db3cb324451ca7625fe8c27774d86b1', decimals: 18, protocol: 'Merchant Moe', apy: 8.4 },
-  { symbol: 'INIT', name: 'INIT USD Coin', address: '0x1b6a005c3863e08f6f0494b37bb6192b795cb62d', decimals: 6, protocol: 'INIT Capital', apy: 5.5 },
-  { symbol: 'USDY', name: 'Ondo USDY', address: '0x73c68bc2635aa369ccb31b7a354866ba9ca1babd', decimals: 18, protocol: 'Ondo Finance', apy: 5.1 },
-  { symbol: 'USDe', name: 'Ethena USDe', address: '0x5039633649b17501005e7421c5057ba63bf4c4fb', decimals: 18, protocol: 'Ethena', apy: 4.2 },
-  { symbol: 'FLUX', name: 'Fluxion Position', address: '0x5997484a39d6902abc9ba567fe7d0968e730c26d', decimals: 18, protocol: 'Fluxion', apy: 12.5 },
-]
+import { useProtocolHealth } from '../hooks/useProtocolHealth'
+import { TOKEN_LIST, FALLBACK_PRICES } from '../lib/constants'
+import { fetchLiveAPYs } from '../lib/yields'
 
 const hermesClient = new HermesClient("https://hermes.pyth.network", {});
 
@@ -27,8 +19,18 @@ const getRiskColor = (score: number) => {
 
 export const Portfolio = () => {
   const { isConnected, address, connect, isConnecting } = useWalletContext()
+  const { healthData } = useProtocolHealth()
 
   const { currency } = useSettings()
+
+  // Fetch live DeFiLlama APYs (cached 5 minutes)
+  const { data: liveAPYs } = useQuery({
+    queryKey: ['defillamaYields'],
+    queryFn: fetchLiveAPYs,
+    staleTime: 300000,
+    gcTime: 600000,
+    refetchOnWindowFocus: false,
+  })
 
   // Real Balance Fetching with TanStack Query (Safe version)
   const { data: portfolioData } = useQuery({
@@ -39,7 +41,7 @@ export const Portfolio = () => {
       const fetched: any[] = []
 
       const priceIds = TOKEN_LIST.filter(t => t.priceId).map(t => t.priceId!) as string[]
-      let priceMap: Record<string, number> = { MNT: 0.65, mETH: 3000, USDC: 1, MOE: 0.85, INIT: 1, USDY: 1.02, USDe: 1, FLUX: 120 }
+      let priceMap: Record<string, number> = { ...FALLBACK_PRICES }
 
       if (priceIds.length > 0) {
         try {
@@ -77,9 +79,9 @@ export const Portfolio = () => {
               protocol: token.protocol,
               balance: balance.toFixed(token.decimals > 6 ? 4 : 2),
               usdValue,
-              riskScore: Math.floor(Math.random() * 45) + 15,
+              riskScore: healthData.find(h => h.name.toLowerCase().includes(token.protocol.toLowerCase().split(' ')[0]))?.assessment?.riskScore ?? null,
               liquidity: 'instant',
-              apy: token.apy
+              apy: liveAPYs?.[token.symbol] ?? token.apy
             })
           }
         } catch (err) {}
@@ -117,7 +119,7 @@ export const Portfolio = () => {
         <div className="mb-10">
           <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2" style={{ fontFamily: 'Lora, serif' }}>Portfolio</h1>
           <p className="text-[#94A3B8] text-sm md:text-base font-light" style={{ fontFamily: 'Outfit, sans-serif' }}>
-            Your assets, risk profile & liquidity • Powered by Nansen + On-chain Data
+            Your assets, risk profile & liquidity • Powered by Pyth Network + Nansen + On-chain Data
           </p>
         </div>
 
@@ -182,7 +184,11 @@ export const Portfolio = () => {
                               {convertAndFormat(p.usdValue, currency, ethPrice, mntPrice)}
                             </td>
                             <td className="py-4 text-right" style={{ fontFamily: 'Outfit, sans-serif' }}>
-                              <span className={`font-bold ${getRiskColor(p.riskScore)}`}>{p.riskScore}</span>
+                              {p.riskScore !== null ? (
+                                <span className={`font-bold ${getRiskColor(p.riskScore)}`}>{p.riskScore}</span>
+                              ) : (
+                                <span className="text-[#64748B] text-xs" title="Run Health analysis to generate risk scores">—</span>
+                              )}
                             </td>
                             <td className="py-4 text-right text-[#10B981] font-semibold" style={{ fontFamily: 'Outfit, sans-serif' }}>instant</td>
                           </tr>
